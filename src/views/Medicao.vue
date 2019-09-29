@@ -76,6 +76,6 @@ export default {
         font-size: 12px;
     }
     td, th {
-        border: 1px solid black;
+     
     }
 </style>
