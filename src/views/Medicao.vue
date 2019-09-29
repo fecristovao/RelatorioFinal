@@ -94,7 +94,9 @@ export default {
     td {
         font-size: 12px;
     }
-    td, th {
-     
+    tbody td {
+        border: 1px solid black;
+        border-collapse: collapse;
+
     }
 </style>
