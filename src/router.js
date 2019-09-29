@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Espelho from './views/Espelho.vue'
 import Medicao from './views/Medicao.vue'
+import Graficos from './views/Graficos.vue'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/medicao/:mes/:contrato',
       name: 'medicao',
       component: Medicao
+    },
+    {
+      path: '/graficos/:mes/:contrato',
+      name: 'graficos',
+      component: Graficos
     }
   ]
 })

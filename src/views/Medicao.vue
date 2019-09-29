@@ -38,6 +38,21 @@
                 </tr>
             </tbody>
         </table>
+        <div class="center-align">
+            <div class="preloader-wrapper big active" v-if="loading">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -49,7 +64,8 @@ export default {
     data() {
         return {
             dados: [],
-            busca: ""
+            busca: "",
+            loading: true
         }
     },
 
@@ -64,8 +80,11 @@ export default {
     },
 
     mounted() {
+        this.loading = true
         axios.get(this.$store.state.urls.medicao).then(resposta => {
             this.dados = resposta.data
+        }).finally(() => {
+            this.loading = false
         })
     }
 }
