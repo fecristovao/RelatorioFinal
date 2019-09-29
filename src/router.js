@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Espelho from './views/Espelho.vue'
+import Medicao from './views/Medicao.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/espelho/:mes/:contrato',
       name: 'espelho',
       component: Espelho
+    },
+    {
+      path: '/medicao/:mes/:contrato',
+      name: 'medicao',
+      component: Medicao
     }
   ]
 })
