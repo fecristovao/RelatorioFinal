@@ -1,6 +1,6 @@
 <template>
-    <div :class="expandido == true ? 'container center-align' : 'row col s6 center-align'">
-        <div id="projecao"  class="col s12 l6">
+    <div :class="expandido == true ? 'container s12 center-align' : 'row col s6 center-align'">
+        <div id="projecao"  class="grafico col s12 l6">
             <div class="center-align">
                 <div class="preloader-wrapper big active" v-if="loading">
                     <div class="spinner-layer spinner-blue">
@@ -18,7 +18,7 @@
             </div>
             <Projecao :dados="dados"/>
         </div>
-        <div id="diario" class="col s12 l6">
+        <div id="diario" class="grafico col s12 l6">
             <div class="center-align">
                 <div class="preloader-wrapper big active" v-if="loading">
                     <div class="spinner-layer spinner-blue">
@@ -65,3 +65,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>
