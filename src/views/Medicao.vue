@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="input-field container">
+        <div class="input-field container" v-show="!$route.name.includes('Impressão')">
             <input id="busca" type="text" v-model="busca">
             <label for="busca">Busca</label>
         </div>
@@ -53,6 +53,11 @@
                 </div>
             </div>
         </div>
+        <div class="fixed-action-btn" v-show="!$route.name.includes('Impressão')">
+            <router-link class="btn-floating btn-small blue" :to="{name: 'Impressão do Espelho', params: $route.params }">
+                <i class="large material-icons">local_printshop</i>
+            </router-link>
+      </div>
     </div>
 </template>
 
