@@ -57,4 +57,8 @@ export default {
   .btn-small, h6, .btn {
     background-color: #0388A6;
   }
+
+  body {
+    padding-bottom: 100px;
+  }
 </style>
