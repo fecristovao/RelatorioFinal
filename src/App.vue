@@ -18,9 +18,9 @@
             </li>
             
             <div class="divider"></div>
-            <li :class="$route.name == 'espelho' ? 'active' : ''"><router-link class="sidenav-close" :to="{name: 'espelho', params: $route.params }">Espelho</router-link></li>
-            <li :class="$route.name == 'medicao' ? 'active' : ''"><router-link class="sidenav-close" :to="{name: 'medicao', params: $route.params }">Medição</router-link></li>
-            <li :class="$route.name == 'graficos' ? 'active' : ''"><router-link class="sidenav-close" :to="{name: 'graficos', params: $route.params }">Gráficos</router-link></li>
+            <li :class="$route.name == 'espelho' ? 'active' : ''"><router-link class="sidenav-close" :to="{name: 'Espelho', params: $route.params }">Espelho</router-link></li>
+            <li :class="$route.name == 'medicao' ? 'active' : ''"><router-link class="sidenav-close" :to="{name: 'Medição', params: $route.params }">Medição</router-link></li>
+            <li :class="$route.name == 'graficos' ? 'active' : ''"><router-link class="sidenav-close" :to="{name: 'Gráficos', params: $route.params }">Gráficos</router-link></li>
         </ul>
     <div id="corpo">
       <router-view/>
