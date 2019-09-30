@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Espelho from './views/Espelho.vue'
 import Medicao from './views/Medicao.vue'
 import Graficos from './views/Graficos.vue'
+import PrintEspelho from './views/PrintEspelho.vue'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/graficos/:mes/:contrato',
       name: 'graficos',
       component: Graficos
+    },
+    {
+      path: '/print/espelho/:mes/:contrato',
+      name: 'Impressão do Espelho',
+      component: Espelho
     }
   ]
 })

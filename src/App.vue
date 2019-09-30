@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- Header -->
-        <div class="navbar-fixed">
+        <div class="navbar-fixed" v-show="!$route.name.includes('Impressão')">
             <nav>
             <div id="head-nav" class="nav-wrapper">
                 <a href="#" data-target="slide-out" class="sidenav-trigger left show-on-medium-and-up"><i class="material-icons">menu</i></a>
