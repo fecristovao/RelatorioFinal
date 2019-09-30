@@ -6,14 +6,23 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     urls: {
-      espelho: "https://api.myjson.com/bins/16ljoh",
-      medicao: "https://api.myjson.com/bins/i160x",
-      graficos: "https://api.myjson.com/bins/qi0mh"
+      espelho: "http://192.168.1.93:8049/webrunstudio/espelhoapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
+      medicao: "http://192.168.1.93:8049/webrunstudio/medicaoapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
+      graficos: "http://192.168.1.93:8049/webrunstudio/graficosapi.rule?sys=MDC&mes=:mes&contrato=:contrato"
     }
   },
   mutations: {
 
   },
+
+  getters: {
+    link: (state) => (id, params) => {
+      var retorno = state.urls[id].replace(":mes", params.mes)
+      return retorno.replace(":contrato", params.contrato)
+    }
+  
+  },
+
   actions: {
 
   }

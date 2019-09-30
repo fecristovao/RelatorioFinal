@@ -120,6 +120,7 @@
         },
 
         async mounted() {
+            console.log(this.$store.getters.link("oi", this.$route.params))
             await axios.get(this.$store.state.urls.espelho).then(resposta => {
                 this.loading = true
                 this.dados = resposta.data
