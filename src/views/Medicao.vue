@@ -4,7 +4,11 @@
             <input id="busca" type="text" v-model="busca">
             <label for="busca">Busca</label>
         </div>
-        <table class="centered striped responsive-table">
+        <div class="container center-align" id="titulo">
+            <h5>Medição do mês</h5>
+        </div>
+        <hr>
+        <table :class="$route.name.includes('Impressão') ? 'impressao centered striped' : 'centered striped responsive-table'">
             <thead>
                 <tr>
                     <th>Data</th>
@@ -54,7 +58,7 @@
             </div>
         </div>
         <div class="fixed-action-btn" v-show="!$route.name.includes('Impressão')">
-            <router-link class="btn-floating btn-small blue" :to="{name: 'Impressão do Espelho', params: $route.params }">
+            <router-link class="btn-floating btn-small blue" :to="{name: 'Impressão do Medição', params: $route.params }">
                 <i class="large material-icons">local_printshop</i>
             </router-link>
       </div>
@@ -103,5 +107,16 @@ export default {
         border: 1px solid black;
         border-collapse: collapse;
 
+    }
+        
+    .impressao th, .impressao td, .impressao tr  {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    
+
+    hr {
+        margin-top: 30px;
+        margin-bottom: 30px;
     }
 </style>

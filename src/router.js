@@ -25,23 +25,28 @@ export default new Router({
     },
     {
       path: '/espelho/:mes/:contrato',
-      name: 'espelho',
+      name: 'Espelho',
       component: Espelho
     },
     {
       path: '/medicao/:mes/:contrato',
-      name: 'medicao',
+      name: 'Medição',
       component: Medicao
     },
     {
       path: '/graficos/:mes/:contrato',
-      name: 'graficos',
+      name: 'Gráficos',
       component: Graficos
     },
     {
       path: '/print/espelho/:mes/:contrato',
       name: 'Impressão do Espelho',
       component: Espelho
+    },
+    {
+      path: '/print/medicao/:mes/:contrato',
+      name: 'Impressão do Medição',
+      component: Medicao
     }
   ]
 })
