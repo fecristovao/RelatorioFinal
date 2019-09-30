@@ -21,6 +21,7 @@
                     <th>Sonda</th>
                     <th>Série</th>
                     <th>Cento de Custo</th>
+                    <th>Quantidade</th>
                     <th>Preço</th>
                     <th>Total</th>
                 </tr>
@@ -37,8 +38,24 @@
                     <td>{{ item.sst }}</td>
                     <td>{{ item.serie }}</td>
                     <td>{{ item["cento de custo"] }}</td>
+                    <td>{{ item.qtd }}</td>
                     <td>R$ {{ FloatToReais(ReaisToFloat(item.preco)) }}</td>
                     <td>R$ {{ FloatToReais(ReaisToFloat(item.total)) }}</td>
+                </tr>
+                <tr class="tfoot">
+                    <td class="tfoot"></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"><b>{{ FloatToReais(quantidade) }}</b></td>
+                    <td class="tfoot"></td>
+                    <td class="tfoot"><b>R$ {{ FloatToReais(total) }}</b></td>
                 </tr>
             </tbody>
         </table>
@@ -88,6 +105,26 @@ export default {
         }
     },
 
+    computed: {
+        total() {
+            var soma = 0.0
+            this.dados.map(el => {
+                soma += this.ReaisToFloat(el.total)
+            })
+
+            return soma
+        },
+
+        quantidade() {
+            var soma = 0.0
+            this.dados.map(el => {
+                soma += this.ReaisToFloat(el.qtd)
+            })
+
+            return soma
+        }
+    },
+
     mounted() {
         this.loading = true
         axios.get(this.$store.state.urls.medicao).then(resposta => {
@@ -114,7 +151,6 @@ export default {
         border-collapse: collapse;
     }
     
-
     hr {
         margin-top: 30px;
         margin-bottom: 30px;

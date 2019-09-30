@@ -58,6 +58,10 @@ export default {
     background-color: #0388A6;
   }
 
+  .tfoot {
+        background-color: #0388A6;
+  }
+
   body {
     padding-bottom: 100px;
   }
