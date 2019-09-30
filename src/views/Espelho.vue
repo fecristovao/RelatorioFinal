@@ -59,6 +59,12 @@
             R$ {{ somaTotal }}</h6>
 
         </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-small blue" href="espelho.rule?sys=MDC&mes=9&contrato=1">
+                <i class="large material-icons">local_printshop</i>
+            </a>
+      </div>
         
     </div>
 </template>
