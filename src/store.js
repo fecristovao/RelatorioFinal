@@ -6,9 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     urls: {
-      espelho: "http://192.168.1.93:8049/webrunstudio/espelhoapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
-      medicao: "http://192.168.1.93:8049/webrunstudio/medicaoapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
-      graficos: "http://192.168.1.93:8049/webrunstudio/graficosapi.rule?sys=MDC&mes=:mes&contrato=:contrato"
+      espelho: "https://api.myjson.com/bins/16ljoh",
+      medicao: "https://api.myjson.com/bins/124i2l",
+      graficos: "https://api.myjson.com/bins/qi0mh"
     }
   },
   mutations: {

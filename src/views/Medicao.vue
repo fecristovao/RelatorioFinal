@@ -42,9 +42,10 @@
                 </tr>
             </tbody>
         </table>
-        <div class="center-align">
-            <div class="preloader-wrapper big active" v-if="loading">
-                <div class="spinner-layer spinner-blue">
+        <div class="center-align container loader" v-if="loading">
+            <h5>Carregando dados</h5>
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
                     </div>
