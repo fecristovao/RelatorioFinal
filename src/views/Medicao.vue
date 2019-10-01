@@ -4,10 +4,10 @@
             <input id="busca" type="text" v-model="busca">
             <label for="busca">Busca</label>
         </div>
-        <div class="container center-align" id="titulo">
+        <div class="container center-align" id="titulo" v-show="$route.name.includes('Impressão')">
             <h5>Medição do mês</h5>
         </div>
-        <hr>
+        <hr v-show="$route.name.includes('Impressão')">
         <table :class="$route.name.includes('Impressão') ? 'impressao centered striped' : 'centered striped responsive-table'">
             <thead>
                 <tr>
@@ -42,7 +42,7 @@
                     <td>R$ {{ FloatToReais(ReaisToFloat(item.preco)) }}</td>
                     <td>R$ {{ FloatToReais(ReaisToFloat(item.total)) }}</td>
                 </tr>
-                <tr class="tfoot">
+                <tr class="tfoot" v-show="!loading">
                     <td class="tfoot"></td>
                     <td class="tfoot"></td>
                     <td class="tfoot"></td>
