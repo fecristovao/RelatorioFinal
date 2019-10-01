@@ -87,14 +87,14 @@
                     <tr>
                         <th>
                             <p>Numero de Controle</p>
-                            <p class="vermelho">PBR OFCN 5 2019</p>
+                            <p class="vermelho">PBR OFCN {{ formatData(fim)["mes"] }} {{ formatData(fim)["ano"] }}</p>
                         </th>
                         <th colspan="3">
                             <p>Período</p>
-                            <p class="vermelho">21/05/2019 A 20/06/2019</p>
+                            <p class="vermelho">{{ formatData(inicio)["completa"] }} A {{ formatData(fim)["completa"] }}</p>
                         </th>
                         <th>
-                            <p class="vermelho">4600562476</p>
+                            <p class="vermelho">{{ sap }}</p>
                         </th>
                     </tr>
                     <tr>
@@ -142,11 +142,11 @@
                     </tr>
                     <tr>
                         <td class="categoria">Reajuste</td>
-                        <td>1.0462</td>
+                        <td>{{ fator }}</td>
                     </tr>
                     <tr>
                         <td class="categoria">Total Reajustado</td>
-                        <td>R$ {{ FloatToReais(ReaisToFloat(somaTotal) * 1.0462) }}</td>
+                        <td>R$ {{ FloatToReais(ReaisToFloat(somaTotal) * fator) }}</td>
                     </tr>
                 </table>
             </div>
@@ -245,7 +245,11 @@
                 dados: [],
                 agrupado: [],
                 busca: "",
-                loading: true
+                loading: true,
+                fator: 0.0,
+                inicio: "",
+                fim: "",
+                sap: ""
             }
         },
 
@@ -260,6 +264,23 @@
         },
 
         methods: {
+            formatData(data) {
+                if (data === undefined || data.length < 10) {
+                    return ""
+                } else {
+                    var resultado = ""
+
+                    data = data.substring(0, 10)
+                    data = data.split("/")
+                    resultado = {
+                        "dia": data[1],
+                        "mes": data[0],
+                        "ano": data[2],
+                        "completa": data[1]+"/"+data[0]+"/"+data[2]
+                    }
+                    return resultado
+                }
+            },
             somaCategoria(categoria) {
                 var soma = 0.0
                 for (var item in categoria.Itens) {
@@ -279,10 +300,14 @@
         },
 
         async mounted() {
-            await axios.get(this.$store.state.urls.espelho).then(resposta => {
+            await axios.get(this.$store.getters.link("espelho", this.$route.params)).then(resposta => {
                 this.loading = true
                 this.dados = resposta.data
             }).finally(() => {
+                this.fator = parseFloat(this.dados[0].Fator)
+                this.inicio = this.dados[0].PeriodoInicio
+                this.fim = this.dados[0].PeriodoFim
+                this.sap = this.dados[0].SAP
                 var group = []
                 var categorias = {}
                 var atualID = 0
@@ -292,8 +317,8 @@
                         "Indice": atual.Indice,
                         "Servico": atual.Servico,
                         "Quantidade": atual.Quantidade,
-                        "Preco": this.FloatToReais(this.ReaisToFloat(atual.Preco)),
-                        "Total": this.FloatToReais(this.ReaisToFloat(atual.Total)),
+                        "Preco": this.FloatToReais(atual.Preco),
+                        "Total": this.FloatToReais(atual.Total),
                     }
                     if (categorias[atual.Categoria] === undefined) {
                         categorias[atual.Categoria] = atualID
