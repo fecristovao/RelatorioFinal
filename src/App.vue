@@ -71,4 +71,8 @@ export default {
     margin-bottom: 50px;
     border: 1px solid #0388A6;
   }
+
+  #corpo {
+    margin-top: 40px;
+  }
 </style>

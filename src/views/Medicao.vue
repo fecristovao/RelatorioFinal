@@ -1,14 +1,15 @@
 <template>
     <div>
         <div class="input-field container" v-show="!$route.name.includes('Impressão')">
+            <i class="material-icons prefix">search</i>
             <input id="busca" type="text" v-model="busca">
             <label for="busca">Busca</label>
         </div>
         <div class="container center-align" id="titulo" v-show="$route.name.includes('Impressão')">
             <h5>Medição do mês</h5>
         </div>
-        <hr v-show="$route.name.includes('Impressão')">
-        <table :class="$route.name.includes('Impressão') ? 'impressao centered striped' : 'centered striped responsive-table'">
+        <table
+            :class="$route.name.includes('Impressão') ? 'impressao centered striped' : 'centered striped responsive-table'">
             <thead>
                 <tr>
                     <th>Data</th>
@@ -76,84 +77,104 @@
             </div>
         </div>
         <div class="fixed-action-btn" v-show="!$route.name.includes('Impressão')">
-            <router-link class="btn-floating btn-small blue" :to="{name: 'Impressão do Medição', params: $route.params }">
+            <router-link class="btn-floating btn-small blue"
+                :to="{name: 'Impressão do Medição', params: $route.params }">
                 <i class="large material-icons">local_printshop</i>
             </router-link>
-      </div>
+        </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-import monetario from '../mixins/monetario'
-export default {
-    mixins: [monetario],
-    data() {
-        return {
-            dados: [],
-            busca: "",
-            loading: true
-        }
-    },
-
-    methods: {
-        buscar(item, busca) {
-            for(var i in item) {
-                if (item[i].toString().toLowerCase().includes(busca.toLowerCase()))
-                    return true 
+    import axios from 'axios'
+    import monetario from '../mixins/monetario'
+    export default {
+        mixins: [monetario],
+        data() {
+            return {
+                dados: [],
+                busca: "",
+                loading: true
             }
-            return false
-        }
-    },
-
-    computed: {
-        total() {
-            var soma = 0.0
-            this.dados.map(el => {
-                soma += this.ReaisToFloat(el.total)
-            })
-
-            return soma
         },
 
-        quantidade() {
-            var soma = 0.0
-            this.dados.map(el => {
-                soma += this.ReaisToFloat(el.qtd)
+        methods: {
+            buscar(item, busca) {
+                for (var i in item) {
+                    if (item[i].toString().toLowerCase().includes(busca.toLowerCase()))
+                        return true
+                }
+                return false
+            }
+        },
+
+        computed: {
+            total() {
+                var soma = 0.0
+                this.dados.map(el => {
+                    soma += this.ReaisToFloat(el.total)
+                })
+
+                return soma
+            },
+
+            quantidade() {
+                var soma = 0.0
+                this.dados.map(el => {
+                    soma += this.ReaisToFloat(el.qtd)
+                })
+
+                return soma
+            }
+        },
+
+        mounted() {
+            this.loading = true
+            axios.get(this.$store.state.urls.medicao).then(resposta => {
+                this.dados = resposta.data
+            }).finally(() => {
+                this.loading = false
             })
-
-            return soma
         }
-    },
-
-    mounted() {
-        this.loading = true
-        axios.get(this.$store.state.urls.medicao).then(resposta => {
-            this.dados = resposta.data
-        }).finally(() => {
-            this.loading = false
-        })
     }
-}
 </script>
 
 <style scoped>
     td {
         font-size: 12px;
     }
+
     tbody td {
         border: 1px solid black;
         border-collapse: collapse;
 
     }
-        
-    .impressao th, .impressao td, .impressao tr  {
+
+    .impressao th,
+    .impressao td,
+    .impressao tr {
         border: 1px solid black;
         border-collapse: collapse;
+        margin: 0;
+        padding: 0;
     }
-    
+
+    .impressao thead tr th {
+        background-color: #e0e1e2;
+        font-weight: bold;
+    }
+
+    .impressao .tfoot {
+        background-color: #e0e1e2;
+        font-weight: bold;
+    }
+
     hr {
         margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    #titulo {
         margin-bottom: 30px;
     }
 </style>
