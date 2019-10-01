@@ -8,7 +8,8 @@ export default new Vuex.Store({
     urls: {
       espelho: "https://api.myjson.com/bins/16ljoh",
       medicao: "https://api.myjson.com/bins/124i2l",
-      graficos: "https://api.myjson.com/bins/qi0mh"
+      graficos: "https://api.myjson.com/bins/qi0mh",
+      rdo: "https://api.myjson.com/bins/1fulvp"
     }
   },
   mutations: {

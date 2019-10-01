@@ -4,7 +4,7 @@ import Home from './views/Home.vue'
 import Espelho from './views/Espelho.vue'
 import Medicao from './views/Medicao.vue'
 import Graficos from './views/Graficos.vue'
-import PrintEspelho from './views/PrintEspelho.vue'
+import RDO from './views/RDO.vue'
 
 Vue.use(Router)
 
@@ -47,6 +47,11 @@ export default new Router({
       path: '/print/medicao/:mes/:contrato',
       name: 'Impressão do Medição',
       component: Medicao
+    },
+    {
+      path: '/print/rdo/:id',
+      name: 'Impressão de RDO',
+      component: RDO
     }
   ]
 })
