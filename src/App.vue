@@ -34,7 +34,12 @@ export default {
       var elems = document.querySelectorAll('.sidenav');
       var instances = M.Sidenav.init(elems, {});
   });
-  }
+  },
+   watch: {
+        $route(to, from) {
+            document.title = this.$route.name + ' - Perbras ';
+        },
+    }
 }
 </script>
 
