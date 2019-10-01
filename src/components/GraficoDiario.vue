@@ -169,7 +169,7 @@ export default {
                  responsive: true,
                  title: {
                      display: true,
-                     text: 'Evolução Diária do Mês de Maio (Com reajuste aplicado)'
+                     text: 'Evolução Diária do Mês de '+ vm.dados[0].Mes +' (Com reajuste aplicado)'
                  },
                  tooltips: {
                      mode: 'index',

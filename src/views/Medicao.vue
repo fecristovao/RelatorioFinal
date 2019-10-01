@@ -6,7 +6,7 @@
             <label for="busca">Busca</label>
         </div>
         <div class="container center-align" id="titulo" v-show="$route.name.includes('Impressão')">
-            <h5>Medição do mês</h5>
+            <h5>Medição de {{mes}}</h5>
         </div>
         <table
             :class="$route.name.includes('Impressão') ? 'impressao centered striped' : 'centered striped responsive-table'">
@@ -40,8 +40,8 @@
                     <td>{{ item.serie }}</td>
                     <td>{{ item["cento de custo"] }}</td>
                     <td>{{ item.qtd }}</td>
-                    <td>R$ {{ FloatToReais(ReaisToFloat(item.preco)) }}</td>
-                    <td>R$ {{ FloatToReais(ReaisToFloat(item.total)) }}</td>
+                    <td>R$ {{ FloatToReais((item.preco)) }}</td>
+                    <td>R$ {{ FloatToReais((item.total)) }}</td>
                 </tr>
                 <tr class="tfoot" v-show="!loading">
                     <td class="tfoot"></td>
@@ -94,7 +94,8 @@
             return {
                 dados: [],
                 busca: "",
-                loading: true
+                loading: true,
+                mes: ""
             }
         },
 
@@ -112,7 +113,7 @@
             total() {
                 var soma = 0.0
                 this.dados.map(el => {
-                    soma += this.ReaisToFloat(el.total)
+                    soma += parseFloat(el.total)
                 })
 
                 return soma
@@ -121,7 +122,7 @@
             quantidade() {
                 var soma = 0.0
                 this.dados.map(el => {
-                    soma += this.ReaisToFloat(el.qtd)
+                    soma += parseFloat(el.qtd)
                 })
 
                 return soma
@@ -130,8 +131,9 @@
 
         mounted() {
             this.loading = true
-            axios.get(this.$store.state.urls.medicao).then(resposta => {
+            axios.get(this.$store.getters.link("medicao", this.$route.params)).then(resposta => {
                 this.dados = resposta.data
+                this.mes = resposta.data[0].mes
             }).finally(() => {
                 this.loading = false
             })

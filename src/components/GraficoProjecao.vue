@@ -268,7 +268,7 @@
 	                 responsive: true,
 	                 title: {
 	                     display: true,
-	                     text: 'Projeção do Mês de Junho (Com Reajuste)'
+	                     text: 'Projeção do Mês de '+ vm.dados[0].Mes +' (Com Reajuste)'
 	                 },
 	                 tooltips: {
 	                     mode: 'index',

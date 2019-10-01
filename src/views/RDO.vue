@@ -17,7 +17,8 @@
                         </div>
                         <div class="caixa">
                             <b>
-                                <p class="azul">{{ (agrupados.PeriodoInicio) }} A {{ agrupados.PeriodoFim }}</p>
+                                <p class="azul">{{ (agrupados.PeriodoInicio["completa"]) }} A
+                                    {{ agrupados.PeriodoFim["completa"] }}</p>
                             </b>
                         </div>
                         <div id="d22" class="centrov">
@@ -95,7 +96,7 @@
                     </div>
                     <div id="c322" class="centrov">
                         <b>
-                            <p>{{agrupados.ContratoInicio}} A {{agrupados.ContratoFim}}</p>
+                            <p>{{agrupados.ContratoInicio["completa"]}} A {{agrupados.ContratoFim["completa"]}}</p>
                         </b>
                     </div>
                 </div>
@@ -128,8 +129,7 @@
                     </tr>
                     <tr v-if="item.Imagens">
                         <td colspan="9">
-                            <img v-for="(id, i) in item.Imagens" :key="i"
-                                :src="'https://webrun.perbras.com.br/webapp/imgapi.rule?sys=MDC&id='+id" height="150"
+                            <img v-for="(id, i) in item.Imagens" :key="i" :src="$store.getters.img(id)" height="150"
                                 alt="">
                         </td>
                     </tr>
@@ -161,9 +161,52 @@
     import axios from 'axios'
     export default {
         mounted() {
-           axios.get(this.$store.state.urls.rdo).then(resposta => {
-               this.dados = resposta.data
-           })
+            axios.get(this.$store.state.urls.rdo + this.$route.params.id).then(resposta => {
+                this.dados = resposta.data
+            }).finally(() => {
+                var agrupados = {}
+                agrupados["ID"] = this.dados[0].ID
+                agrupados["Data"] = this.dados[0].Data
+                agrupados["PeriodoInicio"] = this.formatData(this.dados[0].PeriodoInicio)
+                agrupados["PeriodoFim"] = this.formatData(this.dados[0].PeriodoFim)
+                agrupados["ICJ"] = this.dados[0].ICJ
+                agrupados["SAP"] = this.dados[0].SAP
+                agrupados["Contratante"] = this.dados[0].Contratante
+                agrupados["ContratoOBJ"] = this.dados[0].ContratoOBJ
+                agrupados["ContratoInicio"] = this.formatData(this.dados[0].ContratoInicio)
+                agrupados["ContratoFim"] = this.formatData(this.dados[0].ContratoFim)
+                agrupados["EstNome"] = this.dados[0].EstNome
+                agrupados["Setor"] = this.dados[0].Setor
+                agrupados["Turno"] = this.dados[0].Turno
+                agrupados["HorarioInicio"] = this.dados[0].HorarioInicio.substring(0, 5)
+                agrupados["HorarioFim"] = this.dados[0].HorarioFim.substring(0, 5)
+                agrupados["Itens"] = []
+                var itens = {}
+                for (var i in this.dados) {
+                    if (itens[this.dados[i].ItemID] === undefined) {
+                        var novo = {
+                            "Indice": this.dados[i].Indice,
+                            "Servico": this.dados[i].Servico,
+                            "Quantidade": this.dados[i].Quantidade,
+                            "SST": this.dados[i].SST,
+                            "Poco": this.dados[i].Poco,
+                            "Sonda": this.dados[i].Sonda,
+                            "Serie": this.dados[i].Serie,
+                            "Cento": this.dados[i].Cento,
+                            "Observacao": this.dados[i].Observacao,
+                            "Imagens": [this.dados[i].ImagemID]
+                        }
+
+                        itens[this.dados[i].ItemID] = novo
+                    } else {
+
+                        itens[this.dados[i].ItemID].Imagens.push(this.dados[i].ImagemID)
+                    }
+                }
+                agrupados["Itens"] = itens
+                this.agrupados = agrupados
+
+            })
         },
         data() {
             return {
@@ -179,8 +222,14 @@
                     var resultado = ""
 
                     data = data.substring(0, 10)
-
-                    return data
+                    data = data.split("/")
+                    resultado = {
+                        "dia": data[1],
+                        "mes": data[0],
+                        "ano": data[2],
+                        "completa": data[1] + "/" + data[0] + "/" + data[2]
+                    }
+                    return resultado
                 }
             }
         },
@@ -201,55 +250,12 @@
                 mes[11] = "Novembro"
                 mes[12] = "Dezembro"
 
-                return data[0] + " de " + mes[parseInt(data[1])] + "-" + data[2].substring(0, 4) + " das " + this
+                return data[1] + " de " + mes[parseInt(data[0])] + "-" + data[2].substring(0, 4) + " das " + this
                     .agrupados.HorarioInicio + " até " + this.agrupados.HorarioFim
             }
         },
         watch: {
             dados(newVal) {
-                var agrupados = {}
-                agrupados["ID"] = newVal[0].ID
-                agrupados["Data"] = newVal[0].Data
-                agrupados["PeriodoInicio"] = this.formatData(newVal[0].PeriodoInicio)
-                agrupados["PeriodoFim"] = this.formatData(newVal[0].PeriodoFim)
-                agrupados["ICJ"] = newVal[0].ICJ
-                agrupados["SAP"] = newVal[0].SAP
-                agrupados["Contratante"] = newVal[0].Contratante
-                agrupados["ContratoOBJ"] = newVal[0].ContratoOBJ
-                agrupados["ContratoInicio"] = this.formatData(newVal[0].ContratoInicio)
-                agrupados["ContratoFim"] = this.formatData(newVal[0].ContratoFim)
-                agrupados["EstNome"] = newVal[0].EstNome
-                agrupados["Setor"] = newVal[0].Setor
-                agrupados["Turno"] = newVal[0].Turno
-                agrupados["HorarioInicio"] = newVal[0].HorarioInicio.substring(0, 5)
-                agrupados["HorarioFim"] = newVal[0].HorarioFim.substring(0, 5)
-                agrupados["Itens"] = []
-                var itens = {}
-                for (var i in newVal) {
-                    console.log(newVal[i].ItemID)
-                    if (itens[newVal[i].ItemID] === undefined) {
-                        var novo = {
-                            "Indice": newVal[i].Indice,
-                            "Servico": newVal[i].Servico,
-                            "Quantidade": newVal[i].Quantidade,
-                            "SST": newVal[i].SST,
-                            "Poco": newVal[i].Poco,
-                            "Sonda": newVal[i].Sonda,
-                            "Serie": newVal[i].Serie,
-                            "Cento": newVal[i].Cento,
-                            "Observacao": newVal[i].Observacao,
-                            "Imagens": [newVal[i].ImagemID]
-                        }
-
-                        itens[newVal[i].ItemID] = novo
-                    } else {
-
-                        itens[newVal[i].ItemID].Imagens.push(newVal[i].ImagemID)
-                    }
-                }
-                agrupados["Itens"] = itens
-                this.agrupados = agrupados
-
             }
         }
     }
@@ -429,6 +435,7 @@
     th,
     td,
     tr {
+        text-align: center;
         border: 1px solid black;
         padding: 0;
         margin: 0;

@@ -63,7 +63,7 @@
 
         mounted() {
             this.loading = true
-            axios.get(this.$store.state.urls.graficos).then(resposta => {
+            axios.get(this.$store.getters.link("graficos", this.$route.params)).then(resposta => {
                 this.dados = resposta.data
             }).finally(() => {
                 this.loading = false
