@@ -4,9 +4,10 @@
             <input id="busca" type="text" v-model="busca">
             <label for="busca">Busca</label>
         </div>
-        <div class="center-align">
-            <div class="preloader-wrapper big active" v-if="loading">
-                <div class="spinner-layer spinner-blue">
+        <div class="center-align container loader" v-if="loading">
+            <h5>Carregando dados</h5>
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
                     </div>
@@ -20,8 +21,9 @@
             </div>
         </div>
         <template v-for="categoria in agrupado">
-            <div class="center-align"><a class="waves-effect waves-light btn-small" @click="categoria.Visivel = !categoria.Visivel">
-            {{ categoria.Categoria }}</a></div>
+            <div class="center-align"><a class="waves-effect waves-light btn-small"
+                    @click="categoria.Visivel = !categoria.Visivel">
+                    {{ categoria.Categoria }}</a></div>
             <table class="responsive-table striped centered">
                 <thead>
                     <tr v-show="categoria.Visivel">
@@ -55,17 +57,18 @@
         </template>
         <hr>
         <div class="container center-align" style="background-color: #2bbbad;text-transform: uppercase;">
-            <h6>Total do Mês<br/>
-            R$ {{ somaTotal }}</h6>
+            <h6>Total do Mês<br />
+                R$ {{ somaTotal }}</h6>
 
         </div>
 
         <div class="fixed-action-btn" v-show="!$route.name.includes('Impressão')">
-            <router-link class="btn-floating btn-small blue" :to="{name: 'Impressão do Espelho', params: $route.params }">
+            <router-link class="btn-floating btn-small blue"
+                :to="{name: 'Impressão do Espelho', params: $route.params }">
                 <i class="large material-icons">local_printshop</i>
             </router-link>
-      </div>
-        
+        </div>
+
     </div>
 </template>
 
@@ -102,21 +105,21 @@
 
         methods: {
             somaCategoria(categoria) {
-                    var soma = 0.0
-                    for (var item in categoria.Itens) {
+                var soma = 0.0
+                for (var item in categoria.Itens) {
 
-                        soma += this.ReaisToFloat(categoria.Itens[item].Total)
-                    }
-                    return this.FloatToReais(soma.toFixed(parseInt(this.casasDecimais)))
-                },
-
-                buscaItem(busca, item, categoria) {
-                    for (var i in item) {
-                        if (item[i].toString().toLowerCase().includes(busca.toLowerCase()))
-                            return true
-                    }
-                    return false
+                    soma += this.ReaisToFloat(categoria.Itens[item].Total)
                 }
+                return this.FloatToReais(soma.toFixed(parseInt(this.casasDecimais)))
+            },
+
+            buscaItem(busca, item, categoria) {
+                for (var i in item) {
+                    if (item[i].toString().toLowerCase().includes(busca.toLowerCase()))
+                        return true
+                }
+                return false
+            }
         },
 
         async mounted() {

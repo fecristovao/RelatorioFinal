@@ -65,4 +65,10 @@ export default {
   body {
     padding-bottom: 100px;
   }
+
+  .loader {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 1px solid #0388A6;
+  }
 </style>

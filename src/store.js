@@ -7,13 +7,22 @@ export default new Vuex.Store({
   state: {
     urls: {
       espelho: "https://api.myjson.com/bins/16ljoh",
-      medicao: "https://api.myjson.com/bins/i160x",
+      medicao: "https://api.myjson.com/bins/124i2l",
       graficos: "https://api.myjson.com/bins/qi0mh"
     }
   },
   mutations: {
 
   },
+
+  getters: {
+    link: (state) => (id, params) => {
+      var retorno = state.urls[id].replace(":mes", params.mes)
+      return retorno.replace(":contrato", params.contrato)
+    }
+  
+  },
+
   actions: {
 
   }
