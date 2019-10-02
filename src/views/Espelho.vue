@@ -304,7 +304,7 @@
                 this.loading = true
                 this.dados = resposta.data
             }).finally(() => {
-                this.fator = parseFloat(this.dados[0].Fator)
+                this.fator = this.ReaisToFloat(this.dados[0].Fator)
                 this.inicio = this.dados[0].PeriodoInicio
                 this.fim = this.dados[0].PeriodoFim
                 this.sap = this.dados[0].SAP
@@ -317,8 +317,8 @@
                         "Indice": atual.Indice,
                         "Servico": atual.Servico,
                         "Quantidade": atual.Quantidade,
-                        "Preco": this.FloatToReais(atual.Preco),
-                        "Total": this.FloatToReais(atual.Total),
+                        "Preco": this.FloatToReais(this.ReaisToFloat(atual.Preco)),
+                        "Total": this.FloatToReais(this.ReaisToFloat(atual.Total)),
                     }
                     if (categorias[atual.Categoria] === undefined) {
                         categorias[atual.Categoria] = atualID

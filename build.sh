@@ -1,7 +1,7 @@
 #!/bin/bash
-echo "Instalando dependencias..."
-npm install
-npm install --save axios chart.js mathjs
+#echo "Instalando dependencias..."
+#npm install
+#npm install --save axios chart.js mathjs
 
 echo "Removendo build antigo..."
 rm -R relatorio

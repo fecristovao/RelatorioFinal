@@ -40,8 +40,8 @@
                     <td>{{ item.serie }}</td>
                     <td>{{ item["cento de custo"] }}</td>
                     <td>{{ item.qtd }}</td>
-                    <td>R$ {{ FloatToReais((item.preco)) }}</td>
-                    <td>R$ {{ FloatToReais((item.total)) }}</td>
+                    <td>R$ {{ FloatToReais(ReaisToFloat(item.preco)) }}</td>
+                    <td>R$ {{ FloatToReais(ReaisToFloat(item.total)) }}</td>
                 </tr>
                 <tr class="tfoot" v-show="!loading">
                     <td class="tfoot"></td>
@@ -113,7 +113,7 @@
             total() {
                 var soma = 0.0
                 this.dados.map(el => {
-                    soma += parseFloat(el.total)
+                    soma += this.ReaisToFloat(el.total)
                 })
 
                 return soma
@@ -122,7 +122,7 @@
             quantidade() {
                 var soma = 0.0
                 this.dados.map(el => {
-                    soma += parseFloat(el.qtd)
+                    soma += this.ReaisToFloat(el.qtd)
                 })
 
                 return soma

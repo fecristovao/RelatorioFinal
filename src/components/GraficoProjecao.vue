@@ -22,7 +22,6 @@
 	    data() {
 	        return {
 				dadosProcessados: {},
-	            fator: 1.0462,
 	            azul: "rgb(54, 162, 235)",
 	            amarelo: "rgb(255, 205, 86)",
 	            vermelho: "rgb(255, 99, 132)", 
@@ -38,6 +37,9 @@
 	        }
 	    },
 	    computed: {
+			fator() {
+            	return this.dadosProcessados.fator
+        	},
 			x() {
 				return this.dadosProcessados.x
 			},

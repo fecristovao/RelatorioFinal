@@ -9,8 +9,8 @@ const Graficos = {
             var inicio = new Date(val[0].Inicio+"T00:00:00-03:00")
             var diferenca = val[0].DiferencaDias
             
-            dados['orcado'] = parseFloat(val[0].Orcado)
-            dados['fator'] = parseFloat(val[0].Fator)
+            dados['orcado'] = this.ReaisToFloat(val[0].Orcado)
+            dados['fator'] = this.ReaisToFloat(val[0].Fator)
 
             for(i=0;i<=diferenca;i++) {
                 dias[i] = inicio.getDate()
@@ -26,7 +26,7 @@ const Graficos = {
 
             var diario = []
             for(i=0;i<val.length;i++) {
-                diario[i] = parseFloat(val[i].Diario)
+                diario[i] = this.ReaisToFloat(val[i].Diario)
             }
             
             if(val.length < x.length) {
