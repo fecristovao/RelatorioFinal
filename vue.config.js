@@ -1,4 +1,4 @@
 module.exports = {
-    publicPath: '/webapp/relatorio/',
+    publicPath: '/devnew/relatorio/',
     
 };

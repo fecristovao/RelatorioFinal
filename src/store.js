@@ -6,11 +6,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     urls: {
-      espelho: "/webapp/espelhoapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
-      medicao: "/webapp/medicaoapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
-      graficos: "/webapp/graficosapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
-      rdo: "/webapp/rdoapi.rule?sys=MDC&id=",
-      rdoIMG: "/webapp/imgapi.rule?sys=MDC&id=:img"
+      espelho: "/devnew/espelhoapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
+      medicao: "/devnew/medicaoapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
+      graficos: "/devnew/graficosapi.rule?sys=MDC&mes=:mes&contrato=:contrato",
+      rdo: "/devnew/rdoapi.rule?sys=MDC&id=",
+      rdoIMG: "/devnew/imgapi.rule?sys=MDC&id=:img"
     }
   },
   mutations: {
