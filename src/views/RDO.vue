@@ -224,10 +224,10 @@
                     data = data.substring(0, 10)
                     data = data.split("/")
                     resultado = {
-                        "dia": data[1],
-                        "mes": data[0],
+                        "dia": data[0],
+                        "mes": data[1],
                         "ano": data[2],
-                        "completa": data[1] + "/" + data[0] + "/" + data[2]
+                        "completa": data[0] + "/" + data[1] + "/" + data[2]
                     }
                     return resultado
                 }
@@ -250,7 +250,7 @@
                 mes[11] = "Novembro"
                 mes[12] = "Dezembro"
 
-                return data[1] + " de " + mes[parseInt(data[0])] + "-" + data[2].substring(0, 4) + " das " + this
+                return data[0] + " de " + mes[parseInt(data[1])] + "-" + data[2].substring(0, 4) + " das " + this
                     .agrupados.HorarioInicio + " até " + this.agrupados.HorarioFim
             }
         },
